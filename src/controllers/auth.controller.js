@@ -8,11 +8,11 @@ import crypto from 'crypto';
 // === CONFIGURAÇÃO DE COOKIES ===
 const cookieOptions = (maxAge) => ({
   httpOnly: true,
-  secure: true, // ← SEMPRE true em produção
-  sameSite: process.env.NODE_ENV === 'production' ? 'none' : 'lax',
+  secure: true, // SEMPRE true em produção
+  sameSite: 'lax', // ← MUDE para 'lax' agora que estão no mesmo domínio base
   path: '/',
-  maxAge,
-  domain: process.env.NODE_ENV === 'production' ? '.onrender.com' : undefined
+  maxAge
+
 });
 
 // === GERAR TOKENS ===
