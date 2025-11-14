@@ -166,13 +166,19 @@ export const loginCompany = async (req, res) => {
     await user.save();
 
     // Setar cookies
-    setAuthCookies(res, accessToken, refreshTokenJWT);
+    setAuthCookies(res, accessToken, newRefreshJWT);
+
+
 
     // Response
     res.json({
       success: true,
       message: 'Login realizado com sucesso',
       data: {
+        tokens: {
+          accessToken, // ← ADICIONE ESTE
+          refreshToken: refreshTokenJWT // ← ADICIONE ESTE
+        },
         company: { 
           publicId: company.publicId, 
           name: company.name, 
@@ -249,7 +255,16 @@ export const refreshToken = async (req, res) => {
       success: true,
       message: 'Token renovado',
       data: {
-        user: { publicId: user?.publicId, name: user?.name, email: user?.email, role: user?.role }
+        tokens: {
+          accessToken, // ← ADICIONE
+          refreshToken: newRefreshJWT // ← ADICIONE
+        },
+        user: { 
+          publicId: user?.publicId, 
+          name: user?.name, 
+          email: user?.email, 
+          role: user?.role 
+        }
       }
     });
 
